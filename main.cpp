@@ -1,4 +1,3 @@
- 
 #include <iostream>
 using namespace std;
  
@@ -6,6 +5,7 @@ const int N = 20;       // number of nodes
 const int INF = 9999; 
  
 int graph[N][N]; 
+
 void addEdge(char a, char b, int weight)
 {
     int i = a - 'A';    // A = 0, B = 1, C = 2, ...
@@ -13,6 +13,7 @@ void addEdge(char a, char b, int weight)
     graph[i][j] = weight;
     graph[j][i] = weight;
 }
+
 void setupGraph()
 {
     for (int i = 0; i < N; i++)
@@ -79,6 +80,7 @@ void setupGraph()
     addEdge('N', 'T', 17);
     addEdge('O', 'T', 18);
 }
+
 void dijkstra(int start, int dist[], int previous[])
 {
     bool visited[N];
@@ -123,6 +125,7 @@ void dijkstra(int start, int dist[], int previous[])
         }
     }
 }
+
 void printPath(int previous[], int node)
 {
     if (previous[node] == -1)
@@ -138,47 +141,51 @@ int main()
 {
     int dist[N];
     int previous[N];
-    char startLetter;
+    char startLetter, endLetter;
  
     setupGraph();
  
-    cout << "Enter the starting node (A to T): ";
+    // Get starting node
+    cout << "Enter the starting node : ";
     cin >> startLetter;
-
-    if (startLetter >= 'a' && startLetter <= 'z')
-    {
-        startLetter = startLetter - 'a' + 'A';
+    if (startLetter >= 'a' && startLetter <= 'z') startLetter = startLetter - 'a' + 'A';
+    if (startLetter < 'A' || startLetter > 'T') {
+        cout << "Invalid node. Please use a letter from A to T." << endl;
+        return 0;
     }
-    if (startLetter < 'A' || startLetter > 'T')
-    {
+ 
+    // Get destination node
+    cout << "Enter the destination node : ";
+    cin >> endLetter;
+    if (endLetter >= 'a' && endLetter <= 'z') endLetter = endLetter - 'a' + 'A';
+    if (endLetter < 'A' || endLetter > 'T') {
         cout << "Invalid node. Please use a letter from A to T." << endl;
         return 0;
     }
  
     int start = startLetter - 'A';
+    int end = endLetter - 'A';
  
     cout << endl;
     dijkstra(start, dist, previous);
  
-    cout << endl;
-    cout << "Shortest distances from " << startLetter << ":" << endl;
-    cout << "Node\tDistance\tPath" << endl;
- 
-    for (int i = 0; i < N; i++)
+    // --- CHANGED SECTION: Display only the destination node ---
+    cout << "\n==========================================" << endl;
+    cout << "RESULT FROM " << startLetter << " TO " << endLetter << ":" << endl;
+    cout << "==========================================" << endl;
+    
+    if (dist[end] == INF)
     {
-        cout << char('A' + i) << "\t";
-        if (dist[i] == INF)
-        {
-            cout << "none\t\t-" << endl;
-        }
-        else
-        {
-            cout << dist[i] << "\t\t";
-            printPath(previous, i);
-            cout << endl;
-        }
+        cout << "No path exists from " << startLetter << " to " << endLetter << "." << endl;
     }
+    else
+    {
+        cout << "Shortest Distance: " << dist[end] << endl;
+        cout << "Path: ";
+        printPath(previous, end);
+        cout << endl;
+    }
+    cout << "==========================================" << endl;
  
     return 0;
 }
- 
