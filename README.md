@@ -18,11 +18,8 @@ Path: A -> B -> G -> H -> I
 
 The program also prints each node as it is visited, along with its distance, before the result
 
-g++ main.cpp -o dijkstra
-./dijkstra
-
 Locations
-Node	Location	Node	Location
+Node	Locations	
 A	MUBAS	K	Mosque
 B	Chichiri Shopping Mall	L	Build Africa
 C	College of Medicine (COM)	M	Chigumula
@@ -33,12 +30,7 @@ G	Museum of Malawi	Q	Nando's
 H	Golden Peacock	R	Sana Ginnery Corner
 I	Kamuzu Stadium	S	Mount Soche
 J	Sanjika Palace	T	Cross Roads
-Input rules
-Enter a single letter from A to T. 
-Any other letter prints.
 
+The graph is connected, undirected and weighted, so it has a minimum spanning tree (MST). With 20 vertices, an MST has exactly 19 edges. It represents the set of roads that connects all 20 locations with the least total travel time and no loopss
 
-
-The graph is connected, undirected and weighted, so it has a minimum spanning tree (MST). With 20 vertices, an MST has exactly 19 edges. It represents the set of roads that connects all 20 locations with the least total travel time and no unnecessary loops.
-
-We chose Kruskal's algorithm for finding the MST. This is explained in the report, and the code in this repository covers only Dijkstra's algorithm.
+We chose Kruskal's algorithm for finding the MST. This is explained in the report, and the code in this repository covers only Dijkstra's algorithm
